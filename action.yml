@@ -1,0 +1,86 @@
+name: 'Notification action'
+description: 'Notification reusable action'
+author: 'Gutenberg Technology'
+
+inputs:
+  platform:
+    description: 'Platform'
+    required: false
+  env:
+    description: 'Environment'
+    required: false
+  service:
+    description: 'Service'
+    required: false
+  version:
+    description: 'Version'
+    required: false
+  github-repository-owner:
+    description: 'GitHub repository owner'
+    required: false
+  github-repository:
+    description: 'GitHub repository name'
+    required: false
+  github-repository-url:
+    description: 'GitHub repository url'
+    required: false
+  github-workflow:
+    description: 'GitHub workflow'
+    required: false
+  github-job:
+    description: 'GitHub job'
+    required: false
+  github-sha:
+    description: 'GitHub sha'
+    required: false
+  slack-enabled:
+    description: 'Slack enabled'
+    required: true
+    default: 'false'
+  slack-webhook-url:
+    description: 'Slack webhook url'
+    required: false
+  slack-channel:
+    description: 'Slack channel'
+    required: false
+  slack-username:
+    description: 'Slack user'
+    required: false
+  github-last-job-result:
+    description: 'Slack color'
+    required: false
+  slack-icon:
+    description: 'Slack icon'
+    required: false
+  slack-title:
+    description: 'Slack title'
+    required: false
+  slack-message:
+    description: 'Slack message'
+    required: false
+  slack-footer:
+    description: 'Slack footer'
+    required: false
+    default: 'Gutenberg Technology'
+  slack-markdown:
+    description: 'Slackify markdown'
+    required: false
+    default: 'false'
+  
+runs:
+  using: 'composite'
+  steps:
+    - name: Slack - Send Notification
+      if: ${{ inputs.slack-enabled == 'true' }}
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ inputs.slack-webhook-url }}
+        SLACK_CHANNEL: it_script
+        SLACK_USERNAME: ${{ inputs.slack-username }}
+        SLACK_COLOR: ${{ inputs.slack-color }}
+        SLACK_ICON: ${{ inputs.slack-icon }}
+        SLACK_MESSAGE: ${{ inputs.slack-message }}
+        SLACK_TITLE: ${{ inputs.slack-title }}
+        SLACK_FOOTER: ${{ inputs.slack-footer }}
+        SLACKIFY_MARKDOWN: ${{ inputs.slack-markdown }}
+
